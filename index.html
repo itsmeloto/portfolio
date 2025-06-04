@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotex - Roblox Developer Portfolio</title>
+  <style>
+    :root {
+      --primary: #00A2FF;
+      --secondary: #1A1A1A;
+      --accent: #FF3C5C;
+      --light: #F0F0F0;
+      --dark: #1A1A1A;
+      --transition: all 0.3s ease;
+      --roblox-blue: #00A2FF;
+      --roblox-dark: #1A1A1A;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+    }
+    
+    body {
+      background-color: #f9f9f9;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--roblox-dark), var(--roblox-blue));
+      color: white;
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://tr.rbxcdn.com/7c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0/420/420/Image/Png') center/cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      margin: 0 auto 20px;
+      object-fit: cover;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      background-color: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .name {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(45deg, #00A2FF, #FF3C5C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .title {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      transform: translateY(-3px) scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .section {
+      padding: 60px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .section:nth-child(even) {
+      background-color: white;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+      font-size: 2rem;
+      color: var(--secondary);
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--roblox-blue), var(--accent));
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--roblox-blue), var(--accent));
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.5s ease;
+    }
+    
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      transform: translateX(50px);
+    }
+    
+    .timeline-item:nth-child(even).visible {
+      transform: translateX(0);
+    }
+    
+    .timeline-content {
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .timeline-content::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--roblox-blue);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-content::after {
+      right: -60px;
+    }
+    
+    .timeline-item:nth-child(even) .timeline-content::after {
+      left: -60px;
+    }
+    
+    .skill-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      transform: translateY(0);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .skill-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, var(--roblox-blue), var(--accent));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+      font-size: 24px;
+    }
+    
+    .skill-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    
+    .skill-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .contact-btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, var(--roblox-blue), var(--accent));
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 162, 255, 0.3);
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 162, 255, 0.4);
+    }
+    
+    @media (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-content::after {
+        left: -60px !important;
+      }
+    }
+
+    .personal-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, var(--roblox-blue), var(--accent));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .info-content {
+      flex: 1;
+    }
+
+    .info-content h3 {
+      color: var(--secondary);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .info-content p {
+      color: #666;
+      margin-bottom: 5px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .personal-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .skill-item {
+      background: rgba(0, 162, 255, 0.05);
+      padding: 15px;
+      border-radius: 10px;
+      transition: var(--transition);
+    }
+
+    .skill-item:hover {
+      transform: translateY(-3px);
+      background: rgba(0, 162, 255, 0.1);
+    }
+
+    .skill-name {
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .skill-level {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-progress {
+      flex: 1;
+      height: 8px;
+      background: rgba(0, 162, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--roblox-blue), var(--accent));
+      border-radius: 4px;
+      transition: width 1s ease-in-out;
+    }
+
+    .skill-progress-text {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .skill-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skill-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skill-card ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .skill-card ul li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    .skill-card ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .personal-skills-grid, .skill-tag {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="profile-pic">
+          <img src="https://tr.rbxcdn.com/7c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0/420/420/Image/Png" alt="Lotex">
+        </div>
+        <h1 class="name">Lotex</h1>
+        <p class="title">Roblox Developer | AI Engineer | Software Developer</p>
+        <div class="social-links">
+          <a href="https://discord.com/users/1370703648899727471" title="Discord">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </a>
+          <a href="https://www.roblox.com/users/your-id" title="Roblox">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="personal-info">
+    <div class="container">
+      <h2 class="section-title">Personal Information</h2>
+      <div class="personal-info-grid">
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Username</h3>
+            <p>Lotex</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Roblox Usernames</h3>
+            <p>Main: LOTO_FREE</p>
+            <p>Alt: itsmelotex</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Discord</h3>
+            <p>Username: iprollylotex</p>
+            <p>ID: 1370703648899727471</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3>Age</h3>
+            <p>25 years old</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Software Development Journey</h3>
+            <p>Started my journey in 2016 as a Software Developer, mastering various programming languages and development methodologies.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Senior Developer Status</h3>
+            <p>Achieved Certified Senior Software Developer status in 2020, demonstrating expertise in complex system development.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>AI Exploration</h3>
+            <p>Began exploring AI and its engineering applications in 2022, leading to innovative solutions in development.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>AI Engineer Certification</h3>
+            <p>Earned Certified AI Engineer status in 2024, combining AI expertise with software development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roblox-journey">
+    <div class="container">
+      <h2 class="section-title">Roblox Development Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Beginning (2019)</h3>
+            <p>Started as a Main Coder specializing in LUA development for Roblox Studio.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>First Major Project (2021)</h3>
+            <p>Led development of a successful studio with 200K+ members and 10K+ active players as Lead Developer.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>AI Integration (2022)</h3>
+            <p>Pioneered the use of early AI models and tools in Roblox Studio development.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>AI Model Development (2023)</h3>
+            <p>Led a team in creating the first AI model integration for Roblox Studio as Development Team Manager.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Current Role (2024)</h3>
+            <p>Full Time AI Engineer and Tool Scripter, focusing on developing advanced AI tools and scripts for various platforms.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skill-list">
+        <div class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <h3 class="skill-title">Programming Languages</h3>
+          </div>
+          <ul>
+            <li>Python - Expert</li>
+            <li>JavaScript - Advanced</li>
+            <li>LUA - Expert</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+            </div>
+            <h3 class="skill-title">AI & Development</h3>
+          </div>
+          <ul>
+            <li>AI Model Integration</li>
+            <li>Custom AI Tools Development</li>
+            <li>Roblox Studio Plugin Development</li>
+          </ul>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="skill-title">Leadership</h3>
+          </div>
+          <ul>
+            <li>Team Management</li>
+            <li>Project Leadership</li>
+            <li>Development Team Coordination</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+                <path d="M12 3v4"></path>
+                <path d="M6 21V7"></path>
+              </svg>
+            </div>
+            <h3 class="skill-title">Personal Skills</h3>
+          </div>
+          <ul>
+            <li>Team Work Ability</li>
+            <li>Responsibility</li>
+            <li>Analytical Mind</li>
+            <li>Perseverance</li>
+            <li>Good Concentration</li>
+            <li>Loyalty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Contact me for collaboration opportunities</p>
+      <a href="https://discord.com/users/1370703648899727471" class="contact-btn">Get in Touch</a>
+      <p class="copyright">© 2024 Lotex - Roblox Developer Portfolio</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section, .timeline-item').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
